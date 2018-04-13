@@ -1,0 +1,4 @@
+/node_modules/
+lint-eslint.xml
+test-report.xml
+/.nyc_output/

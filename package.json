@@ -1,0 +1,31 @@
+{
+  "name": "foosliga-tournament-schedule",
+  "version": "1.0.1",
+  "description": "Создание календаря для сезона",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "nyc mocha  ./test/",
+    "jenkins-lint": "eslint -f checkstyle . > lint-eslint.xml",
+    "jenkins-test": "echo Not implemented",
+    "lint": "eslint .",
+    "precommit": "npm run lint"
+  },
+  "keywords": [
+    "foosball",
+    "tournament",
+    "schedule"
+  ],
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.7.1",
+    "mocha": "^2.0.1",
+    "mock-require": "^2.0.2",
+    "nyc": "11.2.1",
+    "sinon": "^4.3.0"
+  },
+  "author": "Alexey Khlebaev",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.8.2"
+  }
+}
