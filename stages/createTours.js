@@ -1,5 +1,4 @@
 'use strict';
-const _ = require('lodash');
 
 /*
   Делает тур - массив с элементами матчами
@@ -8,17 +7,16 @@ const _ = require('lodash');
 */
 const createTour = (matches) => {
 
-  const homeTeams = Object.getOwnPropertyNames(matches);
-  const availableTeams = Object.getOwnPropertyNames(matches);
-  const tour = homeTeams.reduce((acc, current, index) => {
+  const availableTeams = matches.map((match) => match.team);
+  const tour = matches.reduce((acc, current, index) => {
     // доступна ли домашняя команда
-    if (!availableTeams.includes(current)) {
+    if (!availableTeams.includes(current.team)) {
       return acc;
     }
 
     // проверяем доступна ли гостевая команда
     let guestTeamI = 0;
-    let guestTeam = matches[current][guestTeamI];
+    let guestTeam = current.guestTeams[guestTeamI];
     if (!guestTeam) {
       return acc;
     }
@@ -26,7 +24,7 @@ const createTour = (matches) => {
     if(!availableTeams.includes(guestTeam)) {
       while (guestTeam && !availableTeams.includes(guestTeam)) {
         guestTeamI++;
-        guestTeam = matches[current][guestTeamI];
+        guestTeam = current.guestTeams[guestTeamI];
       }
       if (!guestTeam) {
         return acc;
@@ -34,17 +32,19 @@ const createTour = (matches) => {
     };
 
     acc.push({
-      homeTeam: current,
+      homeTeam: current.team,
       guestTeam
     });
+
     const guestTeamIndex = availableTeams.findIndex((val) => val === guestTeam);
+    const homeTeamIndex = availableTeams.findIndex((val) => val === current.team);
     // удаляем из доступных в этом туре
-    delete availableTeams[index];
+    delete availableTeams[homeTeamIndex];
     delete availableTeams[guestTeamIndex];
     // удаляем из круга
-    delete matches[current][0];
+    delete current.guestTeams[guestTeamI];
     // убираем undefined
-    matches[current] = matches[current].filter((team) => team);
+    current.guestTeams = current.guestTeams.filter((team) => team);
 
     return acc;
   }, []);
@@ -52,8 +52,7 @@ const createTour = (matches) => {
 };
 
 const isMathchesEmpty = (matches) => {
-  const homeTeams = Object.getOwnPropertyNames(matches);
-  const isEmpty = homeTeams.every(team => matches[team].length === 0);
+  const isEmpty = matches.every(match => match.guestTeams.length === 0);
   return isEmpty;
 };
 
@@ -74,7 +73,7 @@ module.exports = function createTours(matches) {
       ++i;
       const newTour = createTour(matches);
       tours.push(newTour);
+      //matches.sort((match, prevMatch) => prevMatch.guestTeams.length - match.guestTeams.length)
   }
-
 	return tours;
 };

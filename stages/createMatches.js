@@ -11,11 +11,15 @@ module.exports = function createMatches(teams) {
 		throw new Error('teams is required');
 	}
 	const teamsCount = teams.length;
-	const guestTeamsCount = (teamsCount - 1)/2;
 
-	const mathches = {};
+
+	const mathches = [];
 
 	teams.forEach((team, currentTeamIndex) => {
+		const isInFirstHalf = currentTeamIndex < teamsCount/2
+		let guestTeamsCount = isInFirstHalf
+			? Math.ceil((teamsCount - 1)/2)
+			: (teamsCount - 1)/2;
 		const guestTeams = [];
 		for (var i = 1; i <= guestTeamsCount; i++) {
 			const guestTeamIndex = currentTeamIndex + i < teamsCount
@@ -24,7 +28,10 @@ module.exports = function createMatches(teams) {
 
 			guestTeams.push(teams[guestTeamIndex]);
 		}
-		mathches[team] = guestTeams;
+		mathches.push({
+			team,
+			guestTeams
+		})
 	});
 
 

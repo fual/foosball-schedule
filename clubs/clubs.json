@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Jawsspot SPb",
+    "id": "JSP",
+    "days": ["mon", "wed", "th"]
+  },
+  {
+    "name": "IRISH YOGA PUB",
+    "id": "IYP",
+    "days": ["mon", "tu", "wed"]
+  },
+  {
+    "name": "HARAT'S PUB SPB",
+    "id": "HARATS",
+    "days": ["mon", "tu", "wed"]
+  },
+  {
+    "name": "Бар Drink My Darling",
+    "id": "DMD",
+    "days": ["mon", "tu", "wed", "th"]
+  },
+  {
+    "name": "ПОВТОРИТЬ",
+    "id": "ptr",
+    "days": ["mon", "tu", "wed"]
+  },
+  {
+    "name": "ПОВТОРИТЬ",
+    "id": "ptr",
+    "days": ["mon", "tu", "wed"]
+  }
+]
